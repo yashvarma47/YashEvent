@@ -1,0 +1,99 @@
+<div class="login-container">
+    <div class="login-box">
+      <div class="logo">
+        <img src="assets/logonew.png" alt="Event Logo" />
+      </div>
+      <h2>Create an Account</h2>
+      <p>Please fill in the form to sign up</p>
+  
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            class="form-control"
+            placeholder="Enter your name"
+          />
+          <div *ngIf="signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched" class="error">
+            <small *ngIf="signUpForm.get('name')?.errors?.['required']">Name is ['required'].</small>
+            <small *ngIf="signUpForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters long.</small>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="form-control"
+            placeholder="Enter your email"
+          />
+          <div *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched" class="error">
+            <small *ngIf="signUpForm.get('email')?.errors?.['required']">Email is ['required'].</small>
+            <small *ngIf="signUpForm.get('email')?.errors?.['email']">Invalid email format.</small>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input
+            type="text"
+            id="phone"
+            formControlName="phone"
+            class="form-control"
+            placeholder="Enter your phone number"
+          />
+          <div *ngIf="signUpForm.get('phone')?.invalid && signUpForm.get('phone')?.touched" class="error">
+            <small *ngIf="signUpForm.get('phone')?.errors?.['required']">Phone number is ['required'].</small>
+            <small *ngIf="signUpForm.get('phone')?.errors?.['pattern']">Invalid phone number format.</small>
+          </div>
+        </div>
+  
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div class="password-container">
+              <input
+                type="password"
+                id="password"
+                formControlName="password"
+                [type]="hidePassword ? 'password' : 'text'"
+                class="form-control"
+                placeholder="Enter your password"
+              />
+              <button type="button" class="eye-icon" (click)="hidePassword = !hidePassword">
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </div>
+            <div *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched" class="error">
+              <small *ngIf="signUpForm.get('password')?.errors?.['required']">Password is required.</small>
+              <small *ngIf="signUpForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</small>
+            </div>
+          </div>
+  
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            [type]="hidePassword ? 'password' : 'text'"
+            class="form-control"
+            placeholder="Confirm your password"
+          />
+          <div *ngIf="signUpForm.hasError('mismatch') && signUpForm.get('confirmPassword')?.touched" class="error">
+            <small>Passwords do not match.</small>
+          </div>
+        </div>
+  
+        <button type="submit" class="btn" [disabled]="signUpForm.invalid">Sign Up</button>
+      </form>
+  
+      <div class="login-footer">
+        <p>Already have an account? <a href="/login">Login</a></p>
+      </div>
+    </div>
+  </div>
+  
